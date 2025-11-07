@@ -1,0 +1,46 @@
+@model List<MemberSystemMVC.Models.Registration>
+
+<h2>我的場地預約紀錄</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>場地名稱</th>
+            <th>日期</th>
+            <th>時段</th>
+            <th>報名時間</th>
+            <th>付款狀態</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.VenueInfo?.Name</td>
+                <td>@item.VenueDate.ToString("yyyy-MM-dd")</td>
+                <td>@item.TimeSlot</td>
+                <td>@item.RegistrationDate.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@(item.Paid ? "已付款" : "未付款")</td>
+                <td>
+                    <form asp-action="DeleteReservation" method="post" onsubmit="return confirm('確定要刪除這筆預約嗎？');">
+                        <input type="hidden" name="id" value="@item.Id" />
+                        <button type="submit" class="btn btn-danger btn-sm">刪除</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+
+

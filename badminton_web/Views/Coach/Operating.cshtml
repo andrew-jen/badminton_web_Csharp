@@ -1,0 +1,96 @@
+@model MemberSystemMVC.Models.OperatingViewModel
+@{
+    ViewData["Title"] = "開課管理";
+    var currentMonth = ViewBag.CurrentMonth as string;
+}
+
+<h2 class="text-center mb-4">開課管理</h2>
+
+<form asp-action="Operating" asp-controller="Coach" method="post" class="p-4 border rounded shadow-sm bg-light">
+
+    <div class="mb-3">
+        <label class="form-label">場地名稱：</label>
+        <select asp-for="VenueName" class="form-select" required>
+            <option value="">請選擇場地</option>
+            @foreach (var venue in Model.Venues)
+            {
+                <option value="@venue">@venue</option>
+            }
+        </select>
+
+    </div>
+
+
+    <div class="mb-3">
+        <label class="form-label">開課日期：</label>
+        <input type="date" name="scheduledate" class="form-control"
+               min="@DateTime.Today.ToString("yyyy-MM-dd")"
+               max="@DateTime.Today.AddMonths(1).AddDays(DateTime.DaysInMonth(DateTime.Today.AddMonths(1).Year, DateTime.Today.AddMonths(1).Month) - DateTime.Today.Day).ToString("yyyy-MM-dd")"
+               required />
+        <small class="text-muted">※ 僅限選擇本月或下個月的日期</small>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">
+            <label class="form-label">開始時間：</label>
+            <input type="time" id="startTime" class="form-control" required />
+        </div>
+        <div class="col">
+            <label class="form-label">結束時間：</label>
+            <input type="time" id="endTime" class="form-control" required />
+        </div>
+    </div>
+
+    <input type="hidden" name="timeslot" id="timeslot" />
+
+    <div class="mb-3">
+        <label class="form-label">費用 (NT$)：</label>
+        <input type="number" name="fee" class="form-control" min="0" step="50" required />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">人數上限：</label>
+        <input type="number" name="capacity" class="form-control" min="1" max="50" required />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">推薦程度：</label>
+        <select name="recommendationlevel" class="form-select" required>
+            <option value="">請選擇</option>
+            <option value="高">高</option>
+            <option value="中">中</option>
+            <option value="低">低</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">教練電話：</label>
+        <input type="text" name="coachphone" class="form-control" maxlength="10" placeholder="例如：0912345678" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">建立課程</button>
+
+    <a asp-controller="Coach" asp-action="CoachCancel" class="btn btn-danger w-100">
+        查看／取消已開課程
+    </a>
+
+
+</form>
+
+@section Scripts {
+    <script>
+        // 自動把開始與結束時間合併成 timeslot 格式 "HH:mm - HH:mm"
+        document.querySelector("form").addEventListener("submit", function (e) {
+            const start = document.getElementById("startTime").value;
+            const end = document.getElementById("endTime").value;
+
+            if (start && end) {
+                document.getElementById("timeslot").value = `${start} - ${end}`;
+            } else {
+                e.preventDefault();
+                alert("請輸入完整的開始與結束時間！");
+            }
+        });
+    </script>
+}
+

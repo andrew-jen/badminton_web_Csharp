@@ -1,0 +1,55 @@
+@{
+    ViewData["Title"] = "首頁";
+}
+
+<div class="text-center">
+    <h1 class="display-4 fw-bold text-success mb-4">🏸 羽球場地預約系統</h1>
+    <p class="lead mb-5">快速預約球場、管理會員、即時通知 — 一站式預約平台</p>
+
+    <div class="d-flex justify-content-center gap-3">
+        <a class="btn btn-success btn-lg px-4" asp-controller="Member" asp-action="Register">立即註冊</a>
+        <a class="btn btn-outline-success btn-lg px-4" asp-controller="Home" asp-action="Privacy">了解更多</a>
+    </div>
+</div>
+
+<hr class="my-5" />
+
+<section class="row text-center">
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm border-0 h-100">
+            <a asp-controller="Venue" asp-action="Reserve" class="text-decoration-none">
+                <div class="card hover-shadow">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-success fw-bold">即時預約</h5>
+                        <p class="card-text text-muted">隨時查看可用場地，線上預約更方便。</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm border-0 h-100">
+            <a asp-controller="Program" asp-action="Coach" class="text-decoration-none">
+                <div class="card hover-shadow">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-success fw-bold">教練課程</h5>
+                        <p class="card-text text-muted">依據您的程度來選擇最適合的教練課程。</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm border-0 h-100">
+            <a asp-controller="Coach" asp-action="INorUP" class="text-decoration-none">
+                <div class="card hover-shadow">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-success fw-bold">教練註冊/操作(需先登入)</h5>
+                        <p class="card-text text-muted">須先與平台人員聯絡取得教練帳號。</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+</section>

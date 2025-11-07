@@ -1,0 +1,55 @@
+@model List<MemberSystemMVC.Models.VenueSchedule>
+
+<h2>@ViewBag.CurrentMonth 場地預約</h2>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+<table class="table table-bordered table-striped">
+    <thead class="table-light">
+        <tr>
+            <th>場地名稱</th>
+            <th>日期</th>
+            <th>時段</th>
+            <th>費用(單次)</th>
+            <th>人數上限</th>
+            <th>已報名人數</th>
+            <th>剩餘名額</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var s in Model)
+        {
+            <tr>
+                <td>@s.VenueInfo.Name</td>
+                <td>@s.ScheduleDate.ToString("yyyy-MM-dd")</td>
+                <td>@s.TimeSlot</td>
+                <td>@s.Fee.ToString("F2")</td>
+                <td>@s.Capacity</td>
+                <td>@s.RegisteredCount</td>
+                <td>@s.RemainingSlots</td>
+                <td>
+                    @if (s.RemainingSlots > 0)
+                    {
+                        <form asp-controller="Venue" asp-action="Register" method="post">
+                            <input type="hidden" name="scheduleId" value="@s.Id" />
+                            <button type="submit" class="btn btn-sm btn-success">報名</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <span class="text-muted">已額滿</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

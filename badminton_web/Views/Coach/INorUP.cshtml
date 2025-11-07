@@ -1,0 +1,23 @@
+@{
+    ViewData["Title"] = "教練註冊或登入";
+}
+
+<h1 class="text-center mb-5">歡迎教練</h1>
+
+<div class="d-flex justify-content-center gap-4">
+    <!-- 註冊按鈕 -->
+    <form asp-controller="Coach" asp-action="CoachKey" method="get">
+        <button type="submit" class="btn btn-primary btn-lg">
+            註冊
+        </button>
+    </form>
+
+    <!-- 操作按鈕 -->
+    <form asp-controller="Coach" asp-action="Operating" method="get">
+        <button type="submit" class="btn btn-success btn-lg">
+            操作(請先登入)
+        </button>
+    </form>
+</div>
+
+

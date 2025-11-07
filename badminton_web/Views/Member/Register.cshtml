@@ -1,0 +1,69 @@
+@model MemberSystemMVC.Models.Member
+
+@{
+    ViewData["Title"] = "會員註冊";
+}
+
+<h1 class="mb-4">會員註冊</h1>
+
+<form asp-action="Register" asp-controller="Member" method="post" class="needs-validation" novalidate>
+    <div class="mb-3">
+        <label asp-for="Account" class="form-label">帳號(8~16位含英文大小寫、數字、特殊符號!@@# $%^&amp;)</label>
+        <input asp-for="Account" class="form-control" />
+        <span asp-validation-for="Account" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Password" class="form-label">密碼(8~16位含英文小寫、數字)</label>
+        <input asp-for="Password" type="password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label">姓名</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label">Email</label>
+        <input asp-for="Email" type="email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Sex" class="form-label">性別</label>
+        <select asp-for="Sex" class="form-select">
+            <option value="">請選擇</option>
+            <option value="男">男</option>
+            <option value="女">女</option>
+            <option value="不透露">不透露</option>
+        </select>
+        <span asp-validation-for="Sex" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Age" class="form-label">年齡(本活動限年齡18~70歲)</label>
+        <input asp-for="Age" type="number" class="form-control" min="18" max="70" />
+        <span asp-validation-for="Age" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="During_player" class="form-label">球齡(年)</label>
+        <input asp-for="During_player" type="number" class="form-control" min="0" />
+        <span asp-validation-for="During_player" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">註冊</button>
+</form>
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-success mt-3">@ViewBag.Message</div>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+

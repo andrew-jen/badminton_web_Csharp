@@ -1,0 +1,79 @@
+@{
+    ViewData["Title"] = "隱私權政策";
+}
+
+<div class="container mt-5 mb-5">
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-body p-5">
+            <h1 class="text-center mb-4 text-primary fw-bold">
+                @ViewData["Title"]
+            </h1>
+            <p class="text-muted text-center mb-5">
+                我們重視您的隱私，以下說明我們如何蒐集、使用及保護您的個人資料。
+            </p>
+
+            <section class="mb-5">
+                <h4 class="fw-bold text-secondary mb-3">
+                    一、資料蒐集方式
+                </h4>
+                <p>
+                    當您註冊帳號、填寫表單或使用本網站的服務時，我們可能會蒐集您提供的資料，
+                    包括但不限於姓名、電子郵件、聯絡方式與使用行為紀錄。
+                </p>
+            </section>
+
+            <section class="mb-5">
+                <h4 class="fw-bold text-secondary mb-3">
+                    二、資料使用目的
+                </h4>
+                <p>
+                    我們會依據以下目的使用您的資料：
+                </p>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">提供與改善網站服務內容</li>
+                    <li class="list-group-item">通知帳戶或系統相關更新</li>
+                    <li class="list-group-item">進行統計分析以優化使用體驗</li>
+                </ul>
+            </section>
+
+            <section class="mb-5">
+                <h4 class="fw-bold text-secondary mb-3">
+                    三、資料保護
+                </h4>
+                <p>
+                    我們採取合理的安全措施以防止未經授權的存取、修改或洩漏，
+                    並確保您的資料僅由授權人員依照職務需要進行處理。
+                </p>
+            </section>
+
+            <section class="mb-5">
+                <h4 class="fw-bold text-secondary mb-3">
+                    四、資料分享
+                </h4>
+                <p>
+                    除法律要求或為提供服務必要之目的外，
+                    我們不會與第三方分享您的個人資料。
+                </p>
+            </section>
+
+            <section class="mb-5">
+                <h4 class="fw-bold text-secondary mb-3">
+                    五、您的權利
+                </h4>
+                <p>
+                    您可隨時向我們要求查閱、更正或刪除您的個人資料。
+                    如有任何隱私相關問題，請透過
+                    <a href="mailto:support@example.com" class="link-primary fw-semibold">support@example.com</a>
+                    聯絡我們。
+                </p>
+            </section>
+
+            <section class="text-center mt-5">
+                <p class="text-muted small">
+                    最後更新日期：@DateTime.Now.ToString("yyyy 年 MM 月 dd 日")
+                </p>
+            </section>
+        </div>
+    </div>
+</div>
+

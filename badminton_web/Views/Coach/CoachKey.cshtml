@@ -1,0 +1,16 @@
+@{
+    ViewData["Title"] = "教練金鑰驗證";
+}
+
+<h2>請輸入教練金鑰</h2>
+
+<form asp-action="CoachKey" asp-controller="Coach" method="post">
+    <div class="mb-3">
+        <label class="form-label">教練金鑰：</label>
+        <input type="text" name="coachkey" class="form-control" required />       
+    </div>
+    <button type="submit" class="btn btn-primary">驗證</button>
+</form>
+
+@Html.ValidationSummary()
+

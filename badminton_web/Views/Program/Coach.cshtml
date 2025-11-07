@@ -1,0 +1,120 @@
+@model MemberSystemMVC.Models.ProgramPageViewModel
+
+@{
+    ViewData["Title"] = "課程與場地時段";
+}
+
+<h2 class="text-center text-success mb-4">🏸 課程與場地時段一覽表</h2>
+
+<p class="text-center text-muted">目前月份：@ViewBag.CurrentMonth</p>
+
+<table class="table table-striped table-bordered text-center align-middle">
+    <thead class="table-success">
+        <tr>
+            <th>場地名稱</th>
+            <th>日期</th>
+            <th>時段</th>
+            <th>教練</th>
+            <th>收費</th>
+            <th>人數上限</th>
+            <th>已報名</th>
+            <th>剩餘名額</th>
+            <th>建議程度</th>
+            <th>教練電話</th>
+            <th>地址</th>
+            <th>您的報名紀錄(位)</th>
+            <th>報名</th>
+            <th>取消報名</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Courses != null && Model.Courses.Any())
+        {
+            foreach (var item in Model.Courses)
+            {
+                var userCount = Model.Registrations
+                ?.Count(r => r.場地名稱 == item.VenueName
+                && r.日期 == item.ScheduleDate
+                && r.時段 == item.TimeSlot) ?? 0;
+
+                var registration = Model.Registrations
+                ?.FirstOrDefault(r => r.場地名稱 == item.VenueName
+                && r.日期 == item.ScheduleDate
+                && r.時段 == item.TimeSlot);
+
+                <tr>
+                    <td>@item.VenueName</td>
+                    <td>@item.ScheduleDate.ToString("yyyy-MM-dd")</td>
+                    <td>@item.TimeSlot</td>
+                    <td>@item.CoachName</td>
+                    <td>@item.Fee.ToString("C")</td>
+                    <td>@item.Capacity</td>
+                    <td>@item.RegisteredCount</td>
+                    <td class="fw-bold @(item.RemainingSlots > 0 ? "text-success" : "text-danger")">
+                        @item.RemainingSlots
+                    </td>
+                    <td>@item.RecommendationLevel</td>
+                    <td>@item.CoachPhone</td>
+                    <td>@item.Address</td>
+                    <td>@userCount</td>
+
+                    <!-- 報名按鈕 -->
+                    <td>
+                        <form asp-controller="Program" asp-action="ReserveClass" method="post">
+                            <input type="hidden" name="programId" value="@item.Id" />
+                            <button type="submit" class="btn btn-sm btn-success"
+                                    @(item.RemainingSlots <= 0 ? "disabled" : "")>
+                                報名
+                            </button>
+                        </form>
+                    </td>
+
+                    <!-- 取消報名按鈕 -->
+                    <td>
+                        @if (registration != null)
+                        {
+                            <form asp-controller="Program" asp-action="Cancel" method="post">
+                                <input type="hidden" name="registrationId" value="@registration.Id" />
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    取消
+                                </button>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="14" class="text-muted text-center">目前沒有任何課程資料。</td>
+            </tr>
+        }
+    </tbody>
+</table>
+</tbody>
+
+
+<!-- 📝 備註區塊 -->
+<div class="alert alert-info mt-4" role="alert">
+    <h5 class="fw-bold mb-3">📋 課前須知：</h5>
+    <ul class="mb-0 ps-3">
+        <li>
+            本課程分低、中、高 3 個級別，學員選課前可參考以下建議（此處球齡係指未曾上課之球齡，
+            請盡量以羽球分級做為參考）：
+            <ul class="mt-2">
+                <li>低級別：建議球齡 2 年以下（羽球 1～3 級程度）</li>
+                <li>中級別：建議球齡 2～5 年（羽球 4～6 級程度）</li>
+                <li>高級別：建議球齡 5 年以上（羽球 7 級以上）</li>
+            </ul>
+        </li>
+        <li>報名人數達上限後將無法再登記。</li>
+        <li>課程費用已含場地費，無需自行登記場地。</li>
+        <li>課程費用請自行繳付教練，請勿轉帳至本平台帳戶。</li>
+        <li>若於前一天需緊急更改報名或取消，除於本平台修改外，請同步聯繫教練。</li>
+        <li>建議程度僅供參考，實際難度依學員狀況調整。</li>
+    </ul>
+</div>
+
+
+

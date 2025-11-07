@@ -1,0 +1,30 @@
+@{
+    ViewData["Title"] = "會員登入";
+}
+
+<h2>會員登入</h2>
+
+<form asp-action="Login" asp-controller="Member" method="post" class="w-50 mx-auto mt-5">
+    <div class="mb-4">
+        <label class="form-label fw-semibold">帳號：</label>
+        <input type="text" name="account" class="form-control" required />
+    </div>
+
+    <div class="mb-4">
+        <label class="form-label fw-semibold">密碼：</label>
+        <input type="password" name="password" class="form-control" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100 py-2">登入</button>
+</form>
+
+
+@if (ViewBag.Error != null)
+{
+    <p style="color:red;">@ViewBag.Error</p>
+}
+@if (ViewBag.Message != null)
+{
+    <p style="color:green;">@ViewBag.Message</p>
+}
+

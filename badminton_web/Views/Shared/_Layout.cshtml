@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MemberSystemMVC</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" /> 
+    <!--<link rel="stylesheet" href="~/MemberSystemMVC.styles.css" asp-append-version="true" /> -->
+
+    <style>
+        /* 背景與字體 */
+        body {
+            background: linear-gradient(180deg, #f8fff8 0%, #e9f7ef 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* 導覽列樣式 */
+        .navbar {
+            background-color: #0c6b45 !important;
+        }
+
+        .navbar-brand, .nav-link {
+            color: #ffffff !important;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #d1ffd8 !important;
+        }
+
+        /* 主體間距與陰影卡片 */
+        main {
+            margin-top: 40px;
+        }
+
+        .content-card {
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+        }
+
+        /* 頁尾設計 */
+        footer {
+            background-color: #0c6b45;
+            color: #ffffff;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 50px;
+        }
+
+        footer a {
+            color: #d1ffd8;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-dark shadow-sm">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    🏸 羽球場地預約系統
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
+                        aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarMenu">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">首頁</a>
+                        </li>
+
+                        @if (Context.Session.GetString("MemberName") != null)
+                        {
+                            <!-- 登入後顯示 -->
+                            <li class="nav-item">
+                                <span class="nav-link text-success">Hi, @Context.Session.GetString("MemberName")</span>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-danger" asp-controller="Member" asp-action="Logout">登出</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-danger" asp-controller="Home" asp-action="Personal_reserve">預約紀錄</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <!-- 未登入顯示 -->
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Member" asp-action="Register">會員註冊</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Member" asp-action="Login">會員登入</a>
+                            </li>
+                        }
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Privacy">隱私權政策</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            <div class="content-card">
+                @RenderBody()
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        &copy; 2025 - MemberSystemMVC ｜
+        <a asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
